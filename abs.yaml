@@ -1,0 +1,5 @@
+upload_channels:
+  - sfe1ed40
+
+build_env_vars:
+  ANACONDA_ROCKET_ENABLE_PY314 : yes
