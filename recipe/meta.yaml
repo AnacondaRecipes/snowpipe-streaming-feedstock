@@ -1,0 +1,54 @@
+{% set name = "snowpipe-streaming" %}
+{% set version = "1.1.0" %}
+
+package:
+  name: {{ name }}
+  version: {{ version }}
+
+build:
+  number: 0
+  noarch: python
+  missing_dso_whitelist:
+    - lib/libgcc_s.so.1  # [linux]
+    - /lib64/libpthread.so.0  # [linux]
+    - /lib64/libm.so.6  # [linux]
+    - /lib64/libdl.so.2  # [linux]
+    - /lib64/libc.so.6  # [linux]
+    - /lib64/librt.so.1  # [linux and x86_64]
+    - /lib64/ld-linux-x86-64.so.2  # [linux and x86_64]
+
+requirements:
+  build:
+    # curl is needed only for downloading whl files in build.sh and bld.bat
+    - curl
+  host:
+    - pip
+    - python 3.9
+    - wheel
+    - msgspec ==0.19.0
+  run:
+    - python >=3.9
+    - msgspec ==0.19.0
+
+test:
+  imports:
+    - snowflake.ingest.streaming
+  commands:
+    - pip check
+  requires:
+    - pip
+
+about:
+  home: https://github.com/snowflakedb/snowflake-ingest-sdk
+  summary: Snowflake Streaming Ingest SDK
+  license: Apache-2.0
+  license_family: Apache
+  license_file: LICENSE-2.0.txt
+  description: |
+    A high-performance Python SDK for streaming data ingestion into Snowflake, built with Rust for optimal performance and reliability.
+  dev_url: https://github.com/snowflakedb/snowflake-ingest-sdk
+  doc_url: https://docs.snowflake.com
+
+extra:
+  recipe-maintainers:
+    - aosipov
